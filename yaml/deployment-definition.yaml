@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dep-myapp-1
+  labels:
+    rs-group: dep-group-1
+    tier: frontend
+spec:
+  replicas: 6
+  selector:
+    matchLabels:
+      tier: frontend
+  template:
+    metadata:
+      name: myapp
+      labels:
+        tier: frontend
+    spec:
+      containers:
+        - name: nginx-container-1
+          image: nginx:1.21.1-alpine

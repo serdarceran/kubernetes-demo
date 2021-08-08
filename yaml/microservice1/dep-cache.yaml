@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dep-cache
+spec:
+  selector:
+    matchLabels:
+      app: cache
+  replicas: 3
+  template:
+    metadata:
+      name: pod-cache
+      labels:
+        app: cache
+    spec:
+      containers:
+        - name: cache
+          image: redis
+          ports:
+            - containerPort: 6379
+              hostPort: 6379

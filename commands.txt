@@ -1,0 +1,85 @@
+
+### MINIKUBE DOCKER ######
+docker run --name minikube_v3 -t -d --privileged -v /var/share:/var/share -p 30001-30010:30001-30010  minikube:v3
+
+docker exec -it minikube_v1 /bin/sh
+
+> su - developer
+> minikube status
+> minikube start --driver=docker
+
+
+docker commit minikube_v1 minikube:v2
+
+docker image tag minikube:v2 ceranbs/minikube:v2
+
+docker image push ceranbs/minikube:v2
+
+
+===============================================
+
+kubectl get nodes
+
+kubectl create -f pod-definition.yml
+
+kubectl get pods -o wide
+
+kubectl delete pods --all
+
+kubectl describe pod <podname>
+
+kubectl run redis --image=redis --dry-run=client  -o yaml > pod.yaml
+
+kubectl edit pod redis 
+
+
+kubectl get replicationcontrollers
+
+kubectl apply -f repli.yaml
+
+kubectl get replicasets
+
+kubectl get all
+
+kubectl get deployments
+
+kubectl create/apply -f deployment.yaml --record
+
+kubectl get deployments
+
+kubectl edit deployment my-app-deplyment
+
+kubectl set image deployment/my-app-deploment nginx-name=nginx:1.9.1
+
+kubectl rollout status deployment/my-app-deployment
+
+kubectl rollout history deployment/my-app-deployment
+
+kubectl rollout undo deployment/my-app-deplotment
+kubectl rollout undo deployment/nginx-deployment --to-revision=1
+
+minikube service my-service --url
+
+=======================
+SCALE
+
+1- update yaml file and 
+kubectl replace -f file.yaml
+
+2- kubectl scale --replicas=6 -f file.yaml
+3- kubectl scale --replicase=6 replicaset replicaset-1
+4- kubctl edit replicaset replicateset-1
+=============================
+
+TROUBLESHOOT
+
+kubectl explain replicaset | grep VERSION
+====================
+
+Question:
+REcord:
+  - should yaml file be different on each deployment command? it may override/replace the older one..
+  - while rolling out with new deployment, how k8s make sure that it doesn't terminate the pod which is still processing the request from client?
+
+
+

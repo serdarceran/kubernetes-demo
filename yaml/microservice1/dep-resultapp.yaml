@@ -1,0 +1,18 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dep-result-app
+spec:
+  selector:
+    matchLabels:
+      app: result-app
+  replicas: 3
+  template:
+    metadata:
+      name: pod-result-app
+      labels:
+        app: result-app
+    spec:
+      containers:
+        - name: result-app
+          image: kodekloud/examplevotingapp_result:v1

@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: microservice-1
+spec:
+  selector:
+    matchLabels:
+      app: microservice
+  replicas: 3
+  template:
+    metadata:
+      name: myapp
+      labels:
+        app: microservice
+    spec:
+      containers:
+        - name: cache
+          image:  redis
+          ports:
+            - containerPort: 6379
+              hostPort: 6379
+        - name: database
+          image: posgres
+          ports:
+            - containerPort: 5432
+              hostPort: 5432
+        - name: voting-app
+          image: kodekloud/examplevotingapp_vote:v1
+        - name: result-app
+          image: kodekloud/examplevotingapp_result:v1
+        - name: worker-service
+          image: kodekloud/examplevotingapp_worker:v1

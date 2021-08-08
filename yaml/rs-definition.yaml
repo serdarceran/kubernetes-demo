@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: rs-myapp-1
+  labels:
+    rs-group: rs-group-1
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      tier: frontend
+  template:
+    metadata:
+      name: myapp
+      labels:
+        tier: frontend
+    spec:
+      containers:
+        - name: nginx-container-1
+          image: nginx
